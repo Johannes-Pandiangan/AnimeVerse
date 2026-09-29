@@ -163,7 +163,7 @@ class DetailScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(width: screenWidth * 0.05),
+                      SizedBox(width: screenWidth * 0.04),
                       // Total Episodes
                       Container(
                         padding: EdgeInsets.symmetric(
@@ -187,7 +187,7 @@ class DetailScreen extends StatelessWidget {
                           screenWidth * 0.035, fontWeight: FontWeight.w700),
                         ),
                       ),
-                      SizedBox(width: screenWidth * 0.05),
+                      SizedBox(width: screenWidth * 0.04),
                       // Add to Favorites
                       Container(
                         padding: EdgeInsets.symmetric(
