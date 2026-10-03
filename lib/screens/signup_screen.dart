@@ -1,5 +1,7 @@
+import 'package:animeverse/config/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import '../widgets/app_scaffold.dart';
 
 
@@ -114,6 +116,7 @@ class SignUpScreen extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           // TODO: Implement sign in functionality
+                          context.go(AppRoutes.signIn);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue.withValues(alpha: 0.8),
@@ -186,7 +189,8 @@ class SignUpScreen extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            // TODO: Navigate to sign up screen
+                            // TODO: Navigate to sign in screen
+                            context.go(AppRoutes.signIn);
                           },
                           child: Text(
                             'Sign In',
