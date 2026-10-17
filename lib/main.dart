@@ -1,4 +1,6 @@
+import 'package:animeverse/providers/app_state_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'config/routes.dart';
 
 void main() {
@@ -11,13 +13,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return ChangeNotifierProvider(
+      create: (_) => AppStateProvider(),
+      child: MaterialApp.router(
       title: 'Anime Verse',
       theme: ThemeData(
         fontFamily: 'Urbanist',
       ),
       routerConfig: createRouter(),
       debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
