@@ -27,6 +27,25 @@ class AppStateProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  //STATE BARU: query pencarian
+  String _homeSearchQuery = "";
+  String _favoriteSearchQuery = "";
+
+  String get homeSearchQuery => _homeSearchQuery;
+  String get favoriteSearchQuery => _favoriteSearchQuery;
+
+  // Update query Pencarian HomeScreen
+  void setHomeSearchQuery(String query) {
+    _homeSearchQuery = query;
+    notifyListeners();
+  }
+
+  // Update query Pencarian FavoriteScreen
+  void setFavoriteSearchQuery(String query) {
+    _favoriteSearchQuery = query;
+    notifyListeners();
+  }
+
   //helper functions untuk tahu apakah anime sudah ada di favorite atau belum
   bool isFavorite(String id) {
     return _favorites.any((anime) => anime.id == id);
@@ -90,13 +109,39 @@ class AppStateProvider extends ChangeNotifier{
     }
   }
 
+  //Ambil daftar anime home yang sudah difilter
   List<Anime> getFilteredAnimeForHome() {
     List<Anime> result = DummyData.animeList;
 
+    //Terapkan filter genre
     if (_selectedGenre != "All") {
       result = result.where((anime) {
         final genres = anime.genre.split(',').map((g) => g.trim()).toList();
         return genres.contains(_selectedGenre);
+      }).toList();
+    }
+
+    //terapkan filter search (setelah filter genre)
+    if (_homeSearchQuery.isNotEmpty) {
+      result = result.where((anime) {
+        return anime.title
+            .toLowerCase()
+            .contains(_homeSearchQuery.toLowerCase());
+      }).toList();
+    }
+    return result;
+  }
+
+  //Ambil favorit yang sudah difilter (berdasarkan pencarian favorite)
+  List<Anime> getFilteredFavorites() {
+    List<Anime> result = _favorites;
+
+    //terapkan filter search favorit
+    if (_favoriteSearchQuery.isNotEmpty) {
+      result = result.where((anime) {
+        return anime.title
+            .toLowerCase()
+            .contains(_favoriteSearchQuery.toLowerCase());
       }).toList();
     }
     return result;
