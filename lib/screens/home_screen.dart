@@ -1,4 +1,6 @@
+import 'package:animeverse/providers/app_state_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../widgets/genre_list.dart';
 import '../widgets/anime_view.dart';
 import '../widgets/app_scaffold.dart';
@@ -10,6 +12,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
+    final provider = context.watch<AppStateProvider>();
+    final filteredAnime = provider.getFilteredAnimeForHome();
     return AppScaffold(
       appBar: AppBar(
         title: Text(
@@ -77,9 +81,14 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const GenreList(),
+            GenreList(
+              selected: provider.selectedGenre,
+              onGenreSelected: (genre) {
+                provider.setSelectedGenre(genre);
+              },
+            ),
             SizedBox(height: screenHeight * 0.03),
-            const AnimeView(),
+            AnimeView(animeList: filteredAnime),
             SizedBox(height: screenHeight * 0.025),
           ],
         ),
