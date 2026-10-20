@@ -33,6 +33,7 @@ class GenreList extends StatelessWidget {
               borderRadius: BorderRadius.circular(screenWidth * 0.06),
               onTap: () {
                 // TODO: Update the selected genre and filter the anime list accordingly
+                onGenreSelected?.call(genre);
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -42,7 +43,7 @@ class GenreList extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(screenWidth *
                       0.06),
-                  color: const Color(0xFF0b395e),
+                  color: isActive ? const Color(0xFF1976D2) : const Color(0xFF0b395e),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withValues(alpha: 0.3),

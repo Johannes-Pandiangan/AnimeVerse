@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import '../data/dummy_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/anime.dart';
@@ -16,6 +16,16 @@ class AppStateProvider extends ChangeNotifier{
 
   // getters
   List<Anime> get favorites => _favorites;
+
+  //STATE BARU
+  String _selectedGenre = "All";
+
+  String get selectedGenre => _selectedGenre;
+
+  void setSelectedGenre(String genre) {
+    _selectedGenre = genre;
+    notifyListeners();
+  }
 
   //helper functions untuk tahu apakah anime sudah ada di favorite atau belum
   bool isFavorite(String id) {
@@ -80,4 +90,15 @@ class AppStateProvider extends ChangeNotifier{
     }
   }
 
+  List<Anime> getFilteredAnimeForHome() {
+    List<Anime> result = DummyData.animeList;
+
+    if (_selectedGenre != "All") {
+      result = result.where((anime) {
+        final genres = anime.genre.split(',').map((g) => g.trim()).toList();
+        return genres.contains(_selectedGenre);
+      }).toList();
+    }
+    return result;
+  }
 }
